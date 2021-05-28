@@ -1,4 +1,4 @@
-# -Intelligent-Mancala-Game.
+# Intelligent-Mancala-Game.
 
 
 Project Overview: The goal of this project is to implement a Mancala game along with an AI
