@@ -1,0 +1,105 @@
+\documentclass[pdftex,10pt,a4paper,oneside]{article}
+%Can change the pt, papersize etc.
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic} %Algorithm styles, need to be nested for the example shown
+\usepackage{fancyhdr} %For our headers
+\usepackage{graphicx} %Inserting images
+\usepackage{lipsum}  %Blank text fill, delete me when finished
+\usepackage{setspace} %Spacing on the front page for crest and titles
+\usepackage[]{fncychap} % Styles can be Sonny, Lenny, Glenn, Conny, Rejne, Bjarne and Bjornstrup
+\usepackage[hyphens]{url} %Deals with hyphens in urls to make them clickable
+\usepackage{xcolor} %Great if you want coloured text
+\usepackage{tabularx}
+\usepackage{appendix} %Take a wild guess slick
+
+%KEEP THIS ONE LAST it's quite buggy, it allows you to click on links within the pdf and web links without changing the colour. The mouse cursor simply changes its icon to indicate to the user. Great tool - still awkward
+\usepackage[hidelinks]{hyperref}
+
+
+%This will tell the compiler to do the header style, page and spacing between the header and text
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.2pt}
+
+
+
+
+% Load the package
+\usepackage[toc]{glossaries}
+
+% Generate the glossary
+\makeglossaries
+%\includeonly{%chapters/ch1.tex,
+%	chapters/ch3.tex,
+%	chapters/ch4.tex,
+%	chapters/ch5.tex,
+%	chapters/ch6.tex,
+	%chapters/ch7.tex,
+	%chapters/ch8.tex,
+	%chapters/ch9.tex,
+	%chapters/ch10.tex,
+%	chapters/ch11.tex,
+%	chapters/ch12.tex,
+	%chapters/ch13.tex,	}
+\begin{document}
+	
+	\pagenumbering{arabic}
+	
+	\begin{spacing}{2}
+		\begin{center}
+			\includegraphics[scale = 0.20]{ASU.png}
+		\end{center}
+		\vspace{5mm}
+		\begin{center}
+			\textbf{\begin{LARGE}
+					CBIR
+			\end{LARGE}}
+			\vspace{5mm}
+		\end{center}
+		\begin{center}
+			\textbf{\large Mohamed Atta Ibrahim \\ Hady Ashraf Ragab\\Mohamed Yasser Ahmed \\Mahmoud Mohamed Benyamin\\Yousef Abdelbadea Ali
+			 }
+			\vspace{10mm}
+		\end{center}
+		\begin{center}
+			\textbf{\large Supervisor: Dr. Gamal A Ebrahim }\\
+			\textbf{\large Department of Computer and Systems Engineering}\\
+			\textbf{\large Faculty of Engineering at Ain Shams University}\\
+			{\large February 2021\\}
+		\end{center}
+	\end{spacing}
+	
+	\pagebreak
+	
+	\tableofcontents
+	\pagebreak
+	\listoffigures
+	\pagebreak
+	\listoftables
+	\pagebreak
+	\begin{abstract}{
+			This paper presents imp od multimedia project
+	}	\end{abstract}
+	\pagebreak
+	\section*{Introduction}
+	 
+	\addcontentsline{toc}{section}{Introduction}
+	
+	
+	\pagebreak
+
+	
+	
+
+	
+
+	\pagebreak	
+%	\addcontentsline{toc}{section}{References}
+%	\bibliography{ref.bib} 
+%	\bibliographystyle{ieeetr}
+	
+	
+	\printglossary
+\end{document}
