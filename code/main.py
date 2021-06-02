@@ -10,7 +10,15 @@ button_width=15
 p1_pos=0
 p2_pos=200
 binAmount = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
+playing = True
 
+playerOne = True
+
+messageCode = 0
+
+giveawayPile = -1
+
+lastRecipient = -1
 chosenBin = -1
 def clicked():
     if chosenBin >= 0:
@@ -28,6 +36,14 @@ def clicked():
         i = i + 1
     print(i)
 
+
+def get_winner(self):
+    if binAmount[13] < binAmount[6]:
+        print("Player One has won the game!")
+    elif binAmount[13] > binAmount[6]:
+        print("Player Two has won the game!")
+    else:
+        print("The game ended in a tie.")
 
 
 
