@@ -46,6 +46,22 @@ def get_winner(self):
         print("The game ended in a tie.")
 
 
+def checkisover():
+    sideOne = 0
+    sideTwo = 0
+    for j in range(6):
+        sideOne = int(sideOne) + int(binAmount[j])
+        sideTwo = int(sideTwo) + int(binAmount[j+7])
+        
+    if(int(sideOne) == 0 or int(sideTwo) == 0):
+        playing = False
+        binAmount[6] = int(binAmount[6]) + int(sideOne)
+        binAmount[13] = int(binAmount[13]) + int(sideTwo)
+        for k in range(6):
+            binAmount[k] = 0
+            binAmount[k+7] = 0
+
+
 
 tkinter.Button(root,text=binAmount[0],command=clicked, bg='red',width=button_width,height=10,borderwidth=3).place(x=150,y=p2_pos)
 tkinter.Button(root,text=binAmount[1],command=clicked,bg='red',width=button_width,height=10,borderwidth=3).place(x=300,y=p2_pos)
