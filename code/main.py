@@ -21,20 +21,16 @@ giveawayPile = -1
 lastRecipient = -1
 chosenBin = -1
 def clicked():
-    if chosenBin >= 0:
-        giveawayPile = binAmount[chosenBin]
-        binAmount[chosenBin] = 0
-        if int(giveawayPile) <= 0:
-            messageCode = -1  # empty bin was chosen
-    i = 0
-    for element in binAmount:
-        binAmount[i] = binAmount[i]
-        if binAmount[i] < 10:
-            binAmount[i] = binAmount[i]
-        else:
-            binAmount[i] = binAmount[i]
-        i = i + 1
-    print(i)
+    for i in binAmount:
+        print(binAmount.index(i))
+
+    # chosenBin=i
+    # binAmount[chosenBin] = 0
+    # tkinter.Button(root,text=binAmount[chosenBin],command=clicked, bg='red',width=button_width,height=10,borderwidth=3).place(x=150,y=p2_pos)
+    # for i in binAmount[chosenBin+1:6]:
+    #      binAmount[i] =  binAmount[i] +1
+    #      tkinter.Button(root,text=binAmount[i] ,command=clicked, bg='red',width=button_width,height=10,borderwidth=3).place(x=150,y=p2_pos)
+
 
 
 def get_winner(self):
