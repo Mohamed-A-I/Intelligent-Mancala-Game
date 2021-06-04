@@ -8,6 +8,7 @@ class GameBoard():
         self.root = tkinter.Tk()
         self.root.resizable(width=0,height=0)
         self.root.geometry('{}x{}'.format(1200, 392))
+        self.root.title("mancala game")
         self.house1 = tkinter.StringVar()
         self.house2 = tkinter.StringVar() 
         self.house3 = tkinter.StringVar()
@@ -50,7 +51,7 @@ class GameBoard():
             i+=1
     def game_page(self):
         self.initial_state()
-        tkinter.Label(self.root,textvariable=self.houses[6],bg='red',width=18,height=23).place(x=0,y=0)
+        tkinter.Label(self.root,textvariable=self.houses[13],bg='red',width=18,height=23).place(x=0,y=0)
         x_pos = 150
         x_pos1 = 150
         p2_pos=200
@@ -61,14 +62,14 @@ class GameBoard():
         tkinter.Button(self.root,textvariable= self.houses[3],bg='blue',command=lambda:self.rule(3), width=15,height=10,borderwidth=3).place(x=600,y=p2_pos)
         tkinter.Button(self.root,textvariable= self.houses[4],bg='blue',command=lambda:self.rule(4), width=15,height=10,borderwidth=3).place(x=750,y=p2_pos)
         tkinter.Button(self.root,textvariable= self.houses[5],bg='blue',command=lambda:self.rule(5), width=15,height=10,borderwidth=3).place(x=900,y=p2_pos)
-        tkinter.Button(self.root,textvariable= self.houses[7] ,bg='red',command=lambda:self.rule(7), width=15,height=10,borderwidth=3).place(x=150,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[8] ,bg='red',command=lambda:self.rule(8), width=15,height=10,borderwidth=3).place(x=300,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[9] ,bg='red',command=lambda:self.rule(9), width=15,height=10,borderwidth=3).place(x=450,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[10],bg='red',command=lambda:self.rule(10), width=15,height=10,borderwidth=3).place(x=600,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[11],bg='red',command=lambda:self.rule(11), width=15,height=10,borderwidth=3).place(x=750,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[12],bg='red',command=lambda:self.rule(12), width=15,height=10,borderwidth=3).place(x=900,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[12] ,bg='red',command=lambda:self.rule(12), width=15,height=10,borderwidth=3).place(x=150,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[11] ,bg='red',command=lambda:self.rule(11), width=15,height=10,borderwidth=3).place(x=300,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[10] ,bg='red',command=lambda:self.rule(10), width=15,height=10,borderwidth=3).place(x=450,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[9],bg='red',command=lambda:self.rule(9), width=15,height=10,borderwidth=3).place(x=600,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[8],bg='red',command=lambda:self.rule(8), width=15,height=10,borderwidth=3).place(x=750,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[7],bg='red',command=lambda:self.rule(7), width=15,height=10,borderwidth=3).place(x=900,y=p1_pos)
    
-        tkinter.Label(self.root,textvariable=self.houses[13],bg='blue',width=18,height=23).place(x=1055,y=0)
+        tkinter.Label(self.root,textvariable=self.houses[6],bg='blue',width=18,height=23).place(x=1055,y=0)
     
     def update(self):
         i=0
