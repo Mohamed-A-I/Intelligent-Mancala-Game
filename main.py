@@ -1,40 +1,34 @@
-from tkinter import Frame, ttk
-import tkinter
+import tkinter as tk
+from tkinter import ttk
+from tkinter.messagebox import showinfo
 
-bits = [4, 4, 4, 4, 4, 4 , 0, 4, 4, 4, 4, 4, 4 , 0 ]
-def play(n):
-    bits[n] =0
-    l1.config(text=bits[n])
+def popup_bonus():
+    win = tk.Toplevel()
+    win.wm_title("Window")
 
-root = tkinter.Tk()
-root.resizable(width=0,height=0)
-root.geometry('{}x{}'.format(1200, 392))
+    l = tk.Label(win, text="Input")
+    l.grid(row=0, column=0)
 
-root.title("manacala game")
+    b = ttk.Button(win, text="Okay", command=win.destroy)
+    b.grid(row=1, column=0)
 
-button_width=15
-p1_pos=0
-p2_pos=200
+def popup_showinfo():
+    showinfo("Window", "Hello World!")
 
-tkinter.Label(root,text='score \n {}'.format(bits[6]),bg='red',width=18,height=23).place(x=0,y=0)
+class Application(ttk.Frame):
 
-l1 =tkinter.Button(root,text=bits[0],bg='blue',width=button_width,height=10,borderwidth=3,command=play(0)).place(x=150,y=p2_pos)
-l2 =tkinter.Button(root,text=bits[1],bg='blue',width=button_width,height=10,borderwidth=3,command=play(1)).place(x=300,y=p2_pos)
-l3 =tkinter.Button(root,text=bits[2],bg='blue',width=button_width,height=10,borderwidth=3,command=play(2)).place(x=450,y=p2_pos)
-l4 =tkinter.Button(root,text=bits[3],bg='blue',width=button_width,height=10,borderwidth=3,command=play(3)).place(x=600,y=p2_pos)
-tkinter.Button(root,text=bits[4],bg='blue',width=button_width,height=10,borderwidth=3,command=play(4)).place(x=750,y=p2_pos)
-tkinter.Button(root,text=bits[5],bg='blue',width=button_width,height=10,borderwidth=3,command=play(5)).place(x=900,y=p2_pos)
-tkinter.Button(root,text=bits[7] ,bg='red',width=button_width,height=10,borderwidth=3,command=play(7)).place(x=150,y=p1_pos)
-tkinter.Button(root,text=bits[8] ,bg='red',width=button_width,height=10,borderwidth=3,command=play(8)).place(x=300,y=p1_pos)
-tkinter.Button(root,text=bits[9] ,bg='red',width=button_width,height=10,borderwidth=3,command=play(9)).place(x=450,y=p1_pos)
-tkinter.Button(root,text=bits[10],bg='red',width=button_width,height=10,borderwidth=3,command=play(10)).place(x=600,y=p1_pos)
-tkinter.Button(root,text=bits[11],bg='red',width=button_width,height=10,borderwidth=3,command=play(11)).place(x=750,y=p1_pos)
-tkinter.Button(root,text=bits[12],bg='red',width=button_width,height=10,borderwidth=3,command=play(12)).place(x=900,y=p1_pos)
+    def __init__(self, master):
+        ttk.Frame.__init__(self, master)
+        self.pack()
 
-tkinter.Label(root,text='score \n {}'.format(bits[13]),bg='blue',width=18,height=23).place(x=1055,y=0)
+        self.button_bonus = ttk.Button(self, text="Bonuses", command=popup_bonus)
+        self.button_bonus.pack()
 
-# red_player_layout(p2_pos)
+        self.button_showinfo = ttk.Button(self, text="Show Info", command=popup_showinfo)
+        self.button_showinfo.pack()
 
+root = tk.Tk()
+
+app = Application(root)
 
 root.mainloop()
-
