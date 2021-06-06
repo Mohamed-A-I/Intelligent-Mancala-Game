@@ -3,7 +3,7 @@ import tkinter
 
 
 
-class GameBoard():
+class Mancala():
     def __init__(self):
         self.root = tkinter.Tk()
         self.root.resizable(width=0,height=0)
@@ -42,7 +42,8 @@ class GameBoard():
         ]
         # manacala info
         self.bits = [4, 4, 4, 4, 4, 4 , 0, 4, 4, 4, 4, 4, 4 , 0 ]
-        self.player = 1 # 1 -> blue player 0-> red player
+        self.player = 1 
+        self.play_type = 1 
         
         
         self.game_page()
@@ -51,9 +52,12 @@ class GameBoard():
 
     def initial_state(self):
         i=0
+        self.player = 1 
+        self.play_type = 1 
         while i<14:
             self.houses[i].set(self.bits[i])
             i+=1
+        
     def game_page(self):
         self.initial_state()
         tkinter.Label(self.root,textvariable=self.houses[13],bg='red',width=18,height=23).place(x=0,y=0)
@@ -61,21 +65,22 @@ class GameBoard():
         x_pos1 = 150
         p2_pos=200
         p1_pos=0
-        tkinter.Button(self.root,textvariable= self.houses[0],bg='blue',command=lambda:self.play_with_steeling(0), width= 15,height=10,borderwidth=3).place(x=150,y=p2_pos)
-        tkinter.Button(self.root,textvariable= self.houses[1],bg='blue',command=lambda:self.play_with_steeling(1), width=15,height=10,borderwidth=3).place(x=300,y=p2_pos)
-        tkinter.Button(self.root,textvariable= self.houses[2],bg='blue',command=lambda:self.play_with_steeling(2), width=15,height=10,borderwidth=3).place(x=450,y=p2_pos)
-        tkinter.Button(self.root,textvariable= self.houses[3],bg='blue',command=lambda:self.play_with_steeling(3), width=15,height=10,borderwidth=3).place(x=600,y=p2_pos)
-        tkinter.Button(self.root,textvariable= self.houses[4],bg='blue',command=lambda:self.play_with_steeling(4), width=15,height=10,borderwidth=3).place(x=750,y=p2_pos)
-        tkinter.Button(self.root,textvariable= self.houses[5],bg='blue',command=lambda:self.play_with_steeling(5), width=15,height=10,borderwidth=3).place(x=900,y=p2_pos)
-        tkinter.Button(self.root,textvariable= self.houses[12],bg='red',command=lambda:self.play_with_steeling(12), width=15,height=10,borderwidth=3).place(x=150,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[11],bg='red',command=lambda:self.play_with_steeling(11), width=15,height=10,borderwidth=3).place(x=300,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[10],bg='red',command=lambda:self.play_with_steeling(10), width=15,height=10,borderwidth=3).place(x=450,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[9],bg='red',command=lambda:self.play_with_steeling(9), width=15,height=10,borderwidth=3).place(x=600,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[8],bg='red',command=lambda:self.play_with_steeling(8), width=15,height=10,borderwidth=3).place(x=750,y=p1_pos)
-        tkinter.Button(self.root,textvariable= self.houses[7],bg='red',command=lambda:self.play_with_steeling(7), width=15,height=10,borderwidth=3).place(x=900,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[0],bg='blue',command=lambda:self.play_select(0), width= 15,height=10,borderwidth=3).place(x=150,y=p2_pos)
+        tkinter.Button(self.root,textvariable= self.houses[1],bg='blue',command=lambda:self.play_select(1), width=15,height=10,borderwidth=3).place(x=300,y=p2_pos)
+        tkinter.Button(self.root,textvariable= self.houses[2],bg='blue',command=lambda:self.play_select(2), width=15,height=10,borderwidth=3).place(x=450,y=p2_pos)
+        tkinter.Button(self.root,textvariable= self.houses[3],bg='blue',command=lambda:self.play_select(3), width=15,height=10,borderwidth=3).place(x=600,y=p2_pos)
+        tkinter.Button(self.root,textvariable= self.houses[4],bg='blue',command=lambda:self.play_select(4), width=15,height=10,borderwidth=3).place(x=750,y=p2_pos)
+        tkinter.Button(self.root,textvariable= self.houses[5],bg='blue',command=lambda:self.play_select(5), width=15,height=10,borderwidth=3).place(x=900,y=p2_pos)
+        tkinter.Button(self.root,textvariable= self.houses[12],bg='red',command=lambda:self.play_select(12), width=15,height=10,borderwidth=3).place(x=150,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[11],bg='red',command=lambda:self.play_select(11), width=15,height=10,borderwidth=3).place(x=300,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[10],bg='red',command=lambda:self.play_select(10), width=15,height=10,borderwidth=3).place(x=450,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[9],bg='red',command=lambda:self.play_select(9), width=15,height=10,borderwidth=3).place(x=600,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[8],bg='red',command=lambda:self.play_select(8), width=15,height=10,borderwidth=3).place(x=750,y=p1_pos)
+        tkinter.Button(self.root,textvariable= self.houses[7],bg='red',command=lambda:self.play_select(7), width=15,height=10,borderwidth=3).place(x=900,y=p1_pos)
    
         tkinter.Label(self.root,textvariable=self.houses[6],bg='blue',width=18,height=23).place(x=1055,y=0)
     
+
     def update(self):
         i=0
         while i<14:
@@ -147,5 +152,8 @@ class GameBoard():
 
                 self.bits[pushed_index] = 0
         self.update()
-    
-GameBoard()
+    def play_select(self,house_index):
+        if(self.play_type == 1): self.play_without_steeling(house_index)
+        else: self.play_with_steeling(house_index)
+
+Mancala()
