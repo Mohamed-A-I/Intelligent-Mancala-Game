@@ -85,39 +85,30 @@ class GameBoard():
     def play_without_steeling(self,house_index):
         num = self.bits[house_index]
         pushed_index = house_index
-        if(self.player == 1):
-            while(num > 0):
-                if(house_index == 12 and num!=0):
-                    house_index += 1
-                elif(house_index == 5 and num == 1):
-                    self.player = 1
-                    house_index = (house_index + 1)%14 
-                    self.bits[house_index] += 1
-                    break
-                self.player = 0
-                house_index = (house_index + 1)%14 
+        if(self.player == 1 and pushed_index<6):
+            self.player = 0
+            while(num>0):
+                house_index = (house_index + 1)%14
+                if(house_index == 13): house_index = 0
+                elif(num == 1 and house_index==6): self.player = 1
                 self.bits[house_index] += 1
-                num-=1
-                
-            self.bits[pushed_index] = num
-                   
+                num -= 1
 
-        # else:
-        #     while(num > 0):
-        #         if(house_index == 5 and num!=0):
-        #             house_index += 1
-        #         elif(house_index == 12 and num == 1):
-        #             self.player = 0
-        #             house_index = (house_index + 1)%14 
-        #             self.bits[house_index] += 1
-        #             num -=1
-        #             break
-        #         self.player = 1
-        #         house_index = (house_index + 1)%14 
-        #         self.bits[house_index] += 1
-        #         num-=1 
-        # self.bits[pushed_index] = num
-               
+            self.bits[pushed_index] = 0      
+        
+        else:
+            if(self.player == 0 and pushed_index>6):
+                self.player = 1
+                while(num>0):
+                    house_index = (house_index + 1)%14
+                    if(house_index == 6): house_index = 0
+                    elif(num == 1 and house_index==12): self.player = 0
+                    self.bits[house_index] += 1
+                    num -= 1
+
+                self.bits[pushed_index] = 0
+                
+    
         self.update()
     
 
