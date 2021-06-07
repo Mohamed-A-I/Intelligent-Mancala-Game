@@ -147,5 +147,42 @@ class GameBoard():
 
                 self.bits[pushed_index] = 0
         self.update()
+        
+        
+        
+    def winner(self,bits):
+        if int(self.bits[13]) < int(self.bits[6]):
+            print("Player One has won the game!")
+        elif int(self.bits[13]) > int(self.bits[6]):
+            print("Player Two has won the game!")
+        else:
+            print("The game ended in a tie.")
+
+
+    def isGameEnd(self,bits):
+        south = 0
+        north = 0
+        for j in range(6):
+            south = int(south ) + int(self.bits[j])
+            north = int(north) + int(self.bits[j+7])
+        
+            if(int(south) == 0 or int(north) == 0):
+                return  self.winner(self.bits)
+                #return True
+                self.bits[6] = int(self.bits[6]) + int(south)
+                self.bits[13] = int(self.bits[13]) + int(north)
+                for k in range(6):
+                    self.bits[k] = 0
+                    self.bits[k+7] = 0
+        return False
+
+
+#print(isGameEnd(self.bits))
+
+
+
+
+
+
     
 GameBoard()

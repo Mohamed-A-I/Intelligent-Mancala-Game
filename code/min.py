@@ -8,7 +8,7 @@ def minimax(depth, nodeIndex, maximizingPlayer,
    
     # Terminating condition. i.e 
     # leaf node is reached 
-    if depth == 3: 
+    if depth == 2: 
         return values[nodeIndex] 
   
     if maximizingPlayer: 
@@ -51,7 +51,7 @@ def minimax(depth, nodeIndex, maximizingPlayer,
 if __name__ == "__main__": 
    
     #values = [3, 5, 6, 9, 1, 2, 0, -1]  
-    values =[4, 4, 4, 4, 4, 4 , 0, 4, 4, 4, 4, 4, 4 , 0 ]
+    values =[-4, 8, 17,-6]
     print("The optimal value is :", minimax(0, 0, True, values, MIN, MAX)) 
       
 # This code is contributed by Rituraj Jain
