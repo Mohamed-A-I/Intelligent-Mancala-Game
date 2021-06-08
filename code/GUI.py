@@ -150,7 +150,7 @@ class GameBoard():
         
         
         
-    def winner(self,bits):
+    def winner(self):
         if int(self.bits[13]) < int(self.bits[6]):
             print("Player One has won the game!")
         elif int(self.bits[13]) > int(self.bits[6]):
@@ -159,7 +159,7 @@ class GameBoard():
             print("The game ended in a tie.")
 
 
-    def isGameEnd(self,bits):
+    def isGameEnd(self):
         south = 0
         north = 0
         for j in range(6):
