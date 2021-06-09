@@ -1,7 +1,8 @@
+
 from tkinter import Frame, Tk, ttk
 import tkinter
-
-
+from tkinter.messagebox import showinfo
+import math as mt
 
 class Mancala():
     def __init__(self):
@@ -88,6 +89,7 @@ class Mancala():
             i+=1
 
     def play_without_steeling(self,house_index):
+        self.win_message()
         num = self.bits[house_index]
         pushed_index = house_index
         if(self.player == 1 and pushed_index<6):
@@ -106,14 +108,16 @@ class Mancala():
                 self.player = 1
                 while(num>0):
                     house_index = (house_index + 1)%14
-                    if(house_index == 6): house_index = 0
-                    elif(num == 1 and house_index==12): self.player = 0
+                    if(house_index == 6): house_index = 7
+                    elif(num == 1 and house_index==13): self.player = 0
                     self.bits[house_index] += 1
                     num -= 1
 
                 self.bits[pushed_index] = 0
         self.update()
-    
+    def win_message(self):
+        showinfo("winner", "Hello World!")
+
     def play_with_steeling(self,house_index):
         num = self.bits[house_index]
         pushed_index = house_index
@@ -139,8 +143,8 @@ class Mancala():
                 self.player = 1
                 while(num>0):
                     house_index = (house_index + 1)%14
-                    if(house_index == 6): house_index = 0
-                    elif(num == 1 and house_index==12): self.player = 0
+                    if(house_index == 6): house_index = 7
+                    elif(num == 1 and house_index==13): self.player = 0
                     elif(num==1 and self.bits[house_index] == 0):
                         self.bits[13] += 1 + self.bits[12-house_index]
                         self.bits[12-house_index] = 0
@@ -155,5 +159,6 @@ class Mancala():
     def play_select(self,house_index):
         if(self.play_type == 1): self.play_without_steeling(house_index)
         else: self.play_with_steeling(house_index)
-
+   
+        
 Mancala()
