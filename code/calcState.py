@@ -1,7 +1,9 @@
+from GUI import Mancala
 class AI:
 
 	def __init__(self,bits): 
 		self.bits = bits
+		#self.mancala = Mancala()
 
 	def CalculateState(self,bits,pos,player):
 		temp = bits.copy()
@@ -20,11 +22,11 @@ class AI:
 			score = score -1		
 		return temp
 
-	def get_diff_score(self,bits):
+	def get_diff_score(self):
 		if not reversed:
-			return bits[6] - bits[13]
+			return self.bits[6] - self.bits[13]
 		else:
-			return bits[13] - bits[6]
+			return self.bits[13] - self.bits[6]
 	def possible_player_moves(self):
 		for i, a in enumerate(self.bits[0:7]):
 			if a > 0:
@@ -33,26 +35,26 @@ class AI:
 	def find_all_moves(self):
 		all_moves = []  
 		for i in self.possible_player_moves():
-			all_moves.append(self.CalculateState(self.bits,i,0))
+			all_moves.append([i,self.CalculateState(self.bits,i,0)])
 		return all_moves  
 
 
    
 	def mini_max(self,depth=2, maximizing_player=False):
-		if depth == 0 or isGameEnd():
-			return get_diff_score()
+		if depth == 0: #or self.mancala.isGameEnd():
+			return self.get_diff_score()
 		
 		if maximizing_player:
 			best_value = -1000
-			for move, board in get_opponent_board().find_all_moves():
-				val = board.mini_max(depth - 1, not maximizing_player)
+			for move, board in self.find_all_moves():
+				val = self.mini_max(depth - 1, not maximizing_player)
 				best_value = max(best_value, val)
 			return best_value
 		
 		else:
 			best_value = 1000
-			for move, board in get_opponent_board().find_all_moves():
-				val = board.mini_max(depth - 1, not maximizing_player)
+			for move, board in self.find_all_moves():
+				val = self.mini_max(depth - 1, not maximizing_player)
 				best_value = min(best_value, val)
 			return best_value
 
@@ -125,7 +127,7 @@ def compute(x):
 
 
 		 
-bits=[4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4 , 0 ]
+bits=[0, 0, 0, 0, 0, 1, 0, 4, 4, 4, 4, 4, 4 , 0 ]
 test = AI(bits)
-print(test.find_all_moves())
+print(test.mini_max())
 
