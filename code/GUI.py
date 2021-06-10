@@ -1,4 +1,4 @@
-from tkinter import Frame, Tk, ttk
+from tkinter import Frame, Place, Tk, Variable, ttk
 import tkinter
 from tkinter.constants import FALSE, TRUE
 from tkinter.messagebox import showinfo
@@ -9,6 +9,8 @@ class Mancala():
         self.root.resizable(width=0,height=0)
         self.root.geometry('{}x{}'.format(1200, 392))
         self.root.title("mancala game")
+        self.steeloption = tkinter.StringVar()
+        self.aioption = tkinter.StringVar()
         self.house1 = tkinter.StringVar()
         self.house2 = tkinter.StringVar() 
         self.house3 = tkinter.StringVar()
@@ -44,25 +46,20 @@ class Mancala():
 
         self.bits = [4, 4, 4, 4, 4, 4 , 0, 4, 4, 4, 4, 4, 4 , 0 ]
         self.player = 1 
-        self.play_type = 1 
-        self.game_page()
-        
+        self.play_type = 1 #play without steeling
+        self.computer = 0
+        self.home()
+
         self.root.mainloop()
 
-    def initial_state(self):
-        i=0
-        self.player = 1 
-        self.play_type = 1 
+
         
-      
-        self.bits = [4, 4, 4, 4, 4, 4 , 0, 4, 4, 4, 4, 4, 4 , 0 ]
-      
-        while i<14:
-            self.houses[i].set(self.bits[i])
-            i+=1
-        
+###############################################################################   
+#                                  Pages
+###############################################################################   
     def game_page(self):
         self.initial_state()
+        self.menu()
         tkinter.Label(self.root,textvariable=self.houses[13],bg='red',width=18,height=23).place(x=0,y=0)
         x_pos = 150
         x_pos1 = 150
@@ -83,13 +80,69 @@ class Mancala():
    
         tkinter.Label(self.root,textvariable=self.houses[6],bg='blue',width=18,height=23).place(x=1055,y=0)
     
+    def home(self):
+        # AI or multiplayer
+        tkinter.Button(self.root,text="Multiplayer", 
+        width= 15,height=5,borderwidth=3).place(x=450,y=0)
+        tkinter.Button(self.root,text="AI", 
+        width= 15,height=5,borderwidth=3).place(x=450,y=100)
+        tkinter.Label(self.root, textvariable=self.aioption).place(x=500,y=250)
+        # steeling or without steeling 
+        tkinter.Button(self.root,text="steeling",command=lambda:self.choosegame(0), 
+        width= 15,height=5,borderwidth=3).place(x=650,y=0)
+        tkinter.Button(self.root,text="without steeling",command=lambda:self.choosegame(1), 
+        width= 15,height=5,borderwidth=3).place(x=650,y=100)
+        # tkinter.Label(self.root, textvariable=self.steeloption).place(x=700,y=250)
+        # let's play
+        tkinter.Button(self.root,text="Let's play!",command=lambda:self.changepage(2), 
+        width= 15,height=5,borderwidth=3).place(x=550,y=280)
+        
 
+    def menu(self):
+        menubar = tkinter.Menu(self.root)
+        menubar.add_command(label="Home",command=lambda:self.changepage(1))
+        menubar.add_command(label="Exit", command=self.root.quit)
+
+        self.root.config(menu=menubar)
+
+
+    
+###############################################################################   
+#                                Pages Logic
+###############################################################################  
     def update(self):
         i=0
         while i<14:
             self.houses[i].set(self.bits[i])
             i+=1
 
+    def initial_state(self):
+
+        i=0
+        self.player = 1 
+        
+        
+        self.bits = [4, 4, 4, 4, 4, 4 , 0, 4, 4, 4, 4, 4, 4 , 0 ]
+        
+        while i<14:
+            self.houses[i].set(self.bits[i])
+            i+=1
+
+    def changepage(self,pagenum):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+        if pagenum == 1:
+            self.home()
+        elif pagenum == 2:
+            self.game_page()    
+
+    def choosegame(self,type):
+        self.play_type = type
+        self.steeloption.set(type)
+
+###############################################################################   
+#                                  Game Logic
+###############################################################################
     def play_without_steeling(self,house_index):
         self.isGameEnd()
         num = self.bits[house_index]
