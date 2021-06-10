@@ -38,25 +38,26 @@ class AI:
                     yield i+7
         
                 
-    def find_all_moves(self,player=0):
+    def find_all_moves(self,bits,player=0):
         all_moves = []  
         for i in self.possible_player_moves(player):
-            all_moves.append([i,self.CalculateState(self.bits,i,player)])
+            all_moves.append([i,self.CalculateState(bits,i,player)])
         return all_moves  
 
     def isGameEnd(self,bits):
         if(sum(bits[0:6]) == 0 or sum(bits[7:13]) == 0):
+           
             return True
         return False
    
-    def mini_max(self,bits,depth=2, maximizing_player=True):
+    def mini_max(self,bits,depth=2, maximizing_player=False):
         if depth == 0 or self.isGameEnd(bits):
             return self.get_diff_score(bits)
         
         if maximizing_player:
             best_value = -1000
             
-            for move, board in self.find_all_moves(1):
+            for move, board in self.find_all_moves(bits,1):
                 
                 val = self.mini_max(board,depth - 1, not maximizing_player)
                # best_value = max(best_value, val)
@@ -71,7 +72,7 @@ class AI:
         
         else:
             best_value = 1000
-            for move, board in self.find_all_moves(1):
+            for move, board in self.find_all_moves(bits,0):
                 
                 val = self.mini_max(board,depth - 1, not maximizing_player)
                 #best_value = min(best_value, val)
@@ -152,9 +153,10 @@ def compute(x):
 
          
 #bits=[0, 0, 0, 0, 9, 1, 5, 4, 4, 4, 4, 4, 4 , 10 ]
-bits=[0, 0, 0, 0, 9, 1, 5, 0, 0, 0, 0, 9, 1 , 10 ]
+bits=[0, 0, 0, 0, 9, 1, 5, 1, 0, 0, 3, 1, 0 , 10 ]
 test = AI(bits)
-#print(test.mini_max(bits))
-print(test.find_all_moves(1))
+print(test.mini_max(bits))
+#print(test.find_all_moves(1))
+
 
 
