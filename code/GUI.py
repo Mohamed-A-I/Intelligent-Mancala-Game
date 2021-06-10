@@ -239,9 +239,5 @@ class Mancala():
 
 
 
-Mancala()
-
-
-
 
     
