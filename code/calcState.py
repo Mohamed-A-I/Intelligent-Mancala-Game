@@ -65,6 +65,11 @@ class AI:
 	    for i, a in enumerate(board[1:7]):
 	        if a > 0:
 	            yield i
+	def find_all_moves(self):
+	    all_moves = []
+	    for i in self.possible_player_moves():
+ 	    	self.get_player_moves(i, [], all_moves)
+	    return all_moves
 bits=[4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4 , 0 ]
-print(AI.CalculateState(bits,5,0))
+print(AI.CalculateState(bits,6,0))
 
