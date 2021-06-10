@@ -38,11 +38,11 @@ class AI:
 
 
 
-    def find_all_moves(self):
-        all_moves = []
-        for i in self.possible_player_moves():
-            self.get_player_moves(i, [], all_moves)
-        return all_moves            
+	def find_all_moves(self):
+		all_moves = []	
+		for i in self.possible_player_moves():
+			self.get_player_moves(i, [], all_moves)
+		return all_moves            
 
 
 
