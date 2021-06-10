@@ -1,20 +1,22 @@
 class AI:
-	def CalculateState(self,bits,pos,player,stealing):
-		score = bits[pos]
-		bits[pos] = 0
+	def CalculateState(bits,pos,player):
+		temp = bits.copy()
+		score = temp[pos]
+		temp[pos] = 0
 		while(score > 0):
-			pos = (pos+1)%len(pos)
+			pos = (pos+1)%len(temp)
+			print(pos)
 			if(player == 0 and pos == 14):
 				continue
 			elif(player == 1 and pos == 7):
 				continue
-			bits[pos] = bits[pos]+1
+			temp[pos] = temp[pos]+1
 			#if(bit[pos] == 0 and stealing == True):
 
 
 			score = score -1
-		return bits
-	def bestpostion(self,bits,player,depth):
+		return temp
+	def bestpostion(bits,player,depth):
 		score = 0
 		best  =  0
 		if(player == 1):
@@ -65,5 +67,5 @@ class AI:
 	        if a > 0:
 	            yield i
 bits=[4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4 , 0 ]
-#print(winner(bits))
+print(AI.CalculateState(bits,5,0))
 
