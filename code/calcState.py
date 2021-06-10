@@ -168,7 +168,8 @@ def compute(x):
 
          
 #bits=[0, 0, 0, 0, 9, 1, 5, 4, 4, 4, 4, 4, 4 , 10 ]
-bits=[0, 0, 0, 3, 2, 1, 5, 1, 0, 0, 3, 2, 0, 10 ]
+#bits=[0, 0, 0, 3, 2, 1, 5, 1, 0, 0, 3, 2, 0, 10 ]
+bits=[0, 1, 1, 0, 2, 0, 5, 1, 0, 0, 3, 2, 0, 10 ]
 test = AI(bits)
 print(test.mini_max(bits))
 #print(test.find_all_moves(1))
