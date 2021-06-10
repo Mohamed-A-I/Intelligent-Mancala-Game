@@ -1,4 +1,4 @@
-from tkinter import Frame, Place, Tk, Variable, ttk
+from tkinter import Frame, Tk, ttk
 import tkinter
 from tkinter.constants import FALSE, TRUE
 from tkinter.messagebox import showinfo
@@ -210,10 +210,12 @@ class Mancala():
 
                 self.bits[pushed_index] = 0
         self.update()
+
     def play_select(self,house_index):
         if(self.play_type == 1): self.play_without_steeling(house_index)
         else: self.play_with_steeling(house_index)
    
+        
     def winner(self):
        
         if int(self.bits[13]) < int(self.bits[6]):
@@ -227,6 +229,7 @@ class Mancala():
         else:
             showinfo("winner", "no win")
             print("The game ended in a tie.")
+
         
         self.initial_state()
 
