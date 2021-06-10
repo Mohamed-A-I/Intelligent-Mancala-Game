@@ -15,56 +15,27 @@ class AI:
 
 			score = score -1
 		return temp
-	def bestpostion(bits,player,depth):
-		score = 0
-		best  =  0
-		if(player == 1):
-			for i in range(8,13):
-				Temp = bits.copy()
-				calculateState(Temp,i,1)
-				if(Temp[14] > score):
-					score = temp
-					best = i
-			return best
 
 
 
 
 
-	def winner(self,bits):
-	    if int(bits[13]) < int(bits[6]):
-	        print("Player One has won the game!")
-	    elif int(bits[13]) > int(bits[6]):
-	        print("Player Two has won the game!")
-	    else:
-	        print("The game ended in a tie.")
 
-
-	def isGameEnd(self,bits):
-	    south = 0
-	    north = 0
-	    for j in range(6):
-	        south = int(south ) + int(bits[j])
-	        north = int(north) + int(bits[j+7])
-	    
-	        if(int(south) == 0 or int(north) == 0):
-	            return  winner(bits)
-	            #return True
-	            bits[6] = int(bits[6]) + int(south)
-	            bits[13] = int(bits[13]) + int(north)
-	            for k in range(6):
-	                bits[k] = 0
-	                bits[k+7] = 0
-	    return False
-	def get_diff_score(self):
+	def get_diff_score(self,bits):
 	    if not reversed:
-	        return player_points - opponent_points
+	        return bits[6] - bits[13]
 	    else:
-	        return opponent_points - player_points
-	def possible_player_moves(self,board):
-	    for i, a in enumerate(board[1:7]):
+	        return bits[13] - bits[6]
+        
+        
+        
+	def possible_player_moves(self,bits):
+	    for i, a in enumerate(bits[1:7]):
 	        if a > 0:
 	            yield i
+                
+                
+                
 bits=[4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4 , 0 ]
 print(AI.CalculateState(bits,5,0))
 
