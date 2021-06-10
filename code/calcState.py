@@ -36,23 +36,7 @@ class AI:
 
 
    
-    def mini_max(self,depth=2, maximizing_player=False):
-        if depth == 0 or isGameEnd():
-            return get_diff_score()
-        
-        if maximizing_player:
-            best_value = -1000
-            for move, board in get_opponent_board().find_all_moves():
-                val = board.mini_max(depth - 1, not maximizing_player)
-                best_value = max(best_value, val)
-            return best_value
-        
-        else:
-            best_value = 1000
-            for move, board in get_opponent_board().find_all_moves():
-                val = board.mini_max(depth - 1, not maximizing_player)
-                best_value = min(best_value, val)
-            return best_value
+    
 
 
 
@@ -60,49 +44,50 @@ class AI:
 
 '''
     
-def mini_max_alpha_beta(self,depth=2, maximizing_player=False):
-    if depth == 0 or isGameEnd():
-        return get_diff_score()
-    
-    if maximizing_player:
-        best_value = -1000
-        for move, board in get_opponent_board().find_all_moves():
-            val = board.mini_max(depth - 1, not maximizing_player)
-            best_value = max(best_value, val)
-        return best_value
-    
-    else:
-        best_value = 1000
-        for move, board in get_opponent_board().find_all_moves():
-            val = board.mini_max(depth - 1, not maximizing_player)
-            best_value = min(best_value, val)
-        return best_value
+def mini_max(self, depth=2, maximizing_player=False):
+        if depth == 0 or self.no_more_moves():
+            return self.get_heurestic_score()
 
+        if maximizing_player:
+            best_value = -999
+            for move, board in self.get_opponent_board().find_all_moves():
+                val = board.mini_max(depth - 1, not maximizing_player)
+                best_value = max(best_value, val)
+            return best_value
+        else:
+            best_value = 999
+            for move, board in self.get_opponent_board().find_all_moves():
+                val = board.mini_max(depth - 1, not maximizing_player)
+                best_value = min(best_value, val)
+            return best_value
 
+    def mini_max_alpha_beta(
+        self, depth=2, alpha=-999, beta=+999, maximizing_player=False
+    ):
+        if depth == 0 or self.no_more_moves():
+            return self.get_heurestic_score()
 
-
-def mini_max_alpha_beta(self, depth=2, alpha=-999, beta=+999, maximizing_player=False):
-    if depth == 0 or isGameEnd():
-        return get_diff_score()
-    
-    if maximizing_player:
-        best_value = -999
-        for move, board in self.get_opponent_board().find_all_moves():
-            best_value = max(best_value,board.mini_max(depth - 1, alpha, beta, not maximizing_player),)
-            alpha = max(alpha, best_value)
-            if beta <= alpha:
-                break
-        return best_value
-    else:
-        best_value = 999
-        for move, board in self.get_opponent_board().find_all_moves():
-            best_value = min(
+        if maximizing_player:
+            best_value = -999
+            for move, board in self.get_opponent_board().find_all_moves():
+                best_value = max(
+                    best_value,
+                    board.mini_max(depth - 1, alpha, beta, not maximizing_player),
+                )
+                alpha = max(alpha, best_value)
+                if beta <= alpha:
+                    break
+            return best_value
+        else:
+            best_value = 999
+            for move, board in self.get_opponent_board().find_all_moves():
+                best_value = min(
                     best_value, board.mini_max(depth - 1, not maximizing_player)
                 )
-            beta = min(beta, best_value)
-            if beta <= alpha:
-                break
-        return best_value
+                beta = min(beta, best_value)
+                if beta <= alpha:
+                    break
+            return best_value
 
 
 
