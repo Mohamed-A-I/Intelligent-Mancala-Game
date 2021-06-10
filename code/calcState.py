@@ -5,7 +5,6 @@ class AI:
 		temp[pos] = 0
 		while(score > 0):
 			pos = (pos+1)%len(temp)
-			print(pos)
 			if(player == 0 and pos == 14):
 				continue
 			elif(player == 1 and pos == 7):
