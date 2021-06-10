@@ -1,5 +1,5 @@
 class AI:
-	def CalculateState(bits,pos,player):
+	def CalculateState(bits,pos,player,stealing=True):
 		temp = bits.copy()
 		score = temp[pos]
 		temp[pos] = 0
@@ -10,14 +10,20 @@ class AI:
 			elif(player == 1 and pos == 7):
 				continue
 			temp[pos] = temp[pos]+1
+        
 			#if(bit[pos] == 0 and stealing == True):
+        
 
 
 			score = score -1
 		return temp
 
 
-
+    def find_all_moves(self):
+        all_moves = []
+        for i in self.possible_player_moves():
+            self.get_player_moves(i, [], all_moves)
+        return all_moves
 
 
 
@@ -26,16 +32,22 @@ class AI:
 	        return bits[6] - bits[13]
 	    else:
 	        return bits[13] - bits[6]
-        
-        
-        
+    
+    
+    
 	def possible_player_moves(self,bits):
-	    for i, a in enumerate(bits[1:7]):
+	    for i, a in enumerate(bits[0:7]):
 	        if a > 0:
 	            yield i
-                
-                
-                
+
+
+
+            
+
+
+
+            
+            
 bits=[4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4 , 0 ]
 print(AI.CalculateState(bits,5,0))
 
