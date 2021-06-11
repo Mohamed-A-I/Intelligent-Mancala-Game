@@ -5,7 +5,7 @@ class AI:
         self.bits = bits
         #self.mancala = Mancala()
 
-    def CalculateState(self,bits,pos,player):
+    def CalculateState(self,bits,pos,player,stealing):
         temp = bits.copy()
         score = temp[pos]
         temp[pos] = 0
@@ -16,7 +16,16 @@ class AI:
             elif(player == 1 and pos == 6):
                 continue
             temp[pos] = temp[pos]+1
-            #if(bit[pos] == 0 and stealing == True):
+            if(score == 1 and bits[pos] == 0 and stealing == True):
+                if player == 0:
+                    bits[6] = 1 + bits[12-pos]
+                    bits[12-pos] = 0
+                    bits[pos] =0
+                if player == 1:
+                    bits[13] = 1 + bits[12-pos]
+                    bits[12-pos] = 0
+                    bits[pos] =0
+
 
 
             score = score -1        
@@ -38,10 +47,10 @@ class AI:
                     yield i+7
         
                 
-    def find_all_moves(self,bits,player=0):
+    def find_all_moves(self,bits,stealing,player=0):
         all_moves = []  
         for i in self.possible_player_moves(player):
-            all_moves.append([i,self.CalculateState(bits,i,player)])
+            all_moves.append([i,self.CalculateState(bits,i,player,stealing)])
         return all_moves  
 
     def isGameEnd(self,bits):
@@ -62,14 +71,14 @@ class AI:
             return False
        
        
-    def mini_max(self,bits,depth=2, maximizing_player=False):
+    def mini_max(self,bits,depth=2, maximizing_player=False,stealing = False):
         if depth == 0 or self.isGameEnd(bits):
             return self.get_diff_score(bits)
         
         if maximizing_player:
             best_value = -1000
             
-            for move, board in self.find_all_moves(bits,1):
+            for move, board in self.find_all_moves(bits,stealing,1):
                 
                 val = self.mini_max(board,depth - 1, not maximizing_player)+int(self.replay(board, move))
                 
@@ -87,7 +96,7 @@ class AI:
         
         else:
             best_value = 1000
-            for move, board in self.find_all_moves(bits,0):
+            for move, board in self.find_all_moves(bits,stealing,0):
                 
                 val = self.mini_max(board,depth - 1, not maximizing_player)+int(self.replay(board, move))
                 #best_value = min(best_value, val)
