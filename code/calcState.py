@@ -1,4 +1,4 @@
-from GUI import Mancala
+
 class AI:
 
     def __init__(self,bits): 
@@ -180,7 +180,7 @@ def compute(x):
 #bits=[0, 0, 0, 3, 2, 1, 5, 1, 0, 0, 3, 2, 0, 10 ]
 bits=[0, 1, 1, 0, 2, 0, 5, 1, 0, 0, 3, 2, 0, 10 ]
 test = AI(bits)
-print(test.mini_max(bits))
+print(test.mini_max(bits,2,0,0))
 #print(test.find_all_moves(1))
 #print(test.replay(bits, 12,1))
 
