@@ -16,7 +16,7 @@ class AI:
             elif(player == 1 and pos == 6):
                 continue
             temp[pos] = temp[pos]+1
-            if(score == 1 and bits[pos] == 0 and stealing == True):
+            if(score == 1 and bits[pos] == 1 and stealing == True):
                 if player == 0:
                     bits[6] = 1 + bits[12-pos]
                     bits[12-pos] = 0
@@ -74,17 +74,18 @@ class AI:
     def mini_max(self,bits,depth=2, maximizing_player=False,stealing = False):
         if depth == 0 or self.isGameEnd(bits):
             return self.get_diff_score(bits)
+        index=0
         
         if maximizing_player:
             best_value = -1000
             
-            for move, board in self.find_all_moves(bits,stealing,1):
+            for move, board in self.find_all_moves(bits,stealing,0):
                 
-                val = self.mini_max(board,depth - 1, not maximizing_player)+int(self.replay(board, move))
+                val = self.mini_max(board,depth - 1, not maximizing_player,stealing)+int(self.replay(bits, move))
                 
                 
                # best_value = max(best_value, val)
-                index=0
+              
                 if val>best_value:
                    index=move
                    best_value=val
@@ -96,9 +97,9 @@ class AI:
         
         else:
             best_value = 1000
-            for move, board in self.find_all_moves(bits,stealing,0):
+            for move, board in self.find_all_moves(bits,stealing,1):
                 
-                val = self.mini_max(board,depth - 1, not maximizing_player)+int(self.replay(board, move))
+                val = self.mini_max(board,depth - 1, not maximizing_player,stealing)+int(self.replay(bits, move))
                 #best_value = min(best_value, val)
                 if val<best_value:
                    index=move
@@ -180,7 +181,7 @@ def compute(x):
 #bits=[0, 0, 0, 3, 2, 1, 5, 1, 0, 0, 3, 2, 0, 10 ]
 bits=[0, 1, 1, 0, 2, 0, 5, 1, 0, 0, 3, 2, 0, 10 ]
 test = AI(bits)
-print(test.mini_max(bits,2,0,0))
+print(test.mini_max(bits,3,True,False))
 #print(test.find_all_moves(1))
 #print(test.replay(bits, 12,1))
 
