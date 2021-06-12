@@ -48,10 +48,10 @@ def minimax(depth, nodeIndex, maximizingPlayer,
         return best 
        
 # Driver Code 
-if __name__ == "__main__": 
+# if __name__ == "__main__": 
    
-    values = [-5, 8, 7, 3 ]
-    #values =[4, 4, 4, 4, 4, 4 , 4, 4, 4, 4, 4, 4 , 0 ]
-    print("The optimal value is :", minimax(0, 0, True, values, MIN, MAX)) 
+#     values = [-5, 8, 7, 3 ]
+#     #values =[4, 4, 4, 4, 4, 4 , 4, 4, 4, 4, 4, 4 , 0 ]
+#     print("The optimal value is :", minimax(0, 0, True, values, MIN, MAX)) 
       
 # This code is contributed by Rituraj Jain

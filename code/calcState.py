@@ -36,20 +36,21 @@ class AI:
             return bits[6] - bits[13]
         else:
             return bits[13] - bits[6]
-    def possible_player_moves(self,player):
+    def possible_player_moves(self,bits,player):
+        
         if player==0:
-            for i, a in enumerate(self.bits[0:6]):
+            for i, a in enumerate(bits[0:6]):
                 if a > 0:
                     yield i
         else:
-             for i, a in enumerate(self.bits[7:13]):
+             for i, a in enumerate(bits[7:13]):
                 if a > 0:
                     yield i+7
         
                 
     def find_all_moves(self,bits,stealing,player=0):
         all_moves = []  
-        for i in self.possible_player_moves(player):
+        for i in self.possible_player_moves(bits, player):
             all_moves.append([i,self.CalculateState(bits,i,player,stealing)])
         return all_moves  
 
@@ -142,81 +143,17 @@ class AI:
 
 
 
-       
-
-'''
-    
-def mini_max_alpha_beta(self,depth=2, maximizing_player=False):
-    if depth == 0 or isGameEnd():
-        return get_diff_score()
-    
-    if maximizing_player:
-        best_value = -1000
-        for move, board in get_opponent_board().find_all_moves():
-            val = board.mini_max(depth - 1, not maximizing_player)
-            best_value = max(best_value, val)
-        return best_value
-    
-    else:
-        best_value = 1000
-        for move, board in get_opponent_board().find_all_moves():
-            val = board.mini_max(depth - 1, not maximizing_player)
-            best_value = min(best_value, val)
-        return best_value
-
-
-
-
-def mini_max_alpha_beta(self, depth=2, alpha=-999, beta=+999, maximizing_player=False):
-    if depth == 0 or isGameEnd():
-        return get_diff_score()
-    
-    if maximizing_player:
-        best_value = -999
-        for move, board in self.get_opponent_board().find_all_moves():
-            best_value = max(best_value,board.mini_max(depth - 1, alpha, beta, not maximizing_player),)
-            alpha = max(alpha, best_value)
-            if beta <= alpha:
-                break
-        return best_value
-    else:
-        best_value = 999
-        for move, board in self.get_opponent_board().find_all_moves():
-            best_value = min(
-                    best_value, board.mini_max(depth - 1, not maximizing_player)
-                )
-            beta = min(beta, best_value)
-            if beta <= alpha:
-                break
-        return best_value
-
-
-
-
-
-
-
-
-
-
-def compute(x):
-    move_sequence, board = x
-    return [x + 1 for x in move_sequence],mini_max(DEPTH)
-'''            
-   
-
-
-
-
          
 #bits=[0, 0, 0, 0, 9, 1, 5, 4, 4, 4, 4, 4, 4 , 10 ]
 #bits=[0, 0, 0, 3, 2, 1, 5, 1, 0, 0, 3, 2, 0, 10 ]
-bits=[0, 5, 1, 0, 0, 0, 0, 4, 4, 1, 0, 0, 4, 0 ]
-test = AI(bits)
-print(test.mini_max_alpha_beta(bits, 2, -999, 999, True,True))
+# bits=[0, 5, 1, 0, 0, 0, 0, 4, 4, 1, 0, 0, 4, 0 ]
+# test = AI(bits)
+
+# print(test.mini_max_alpha_beta(bits, 2, -999, 999, True,False))
+
+# bits=[0, 0, 0, 3, 2, 1, 5, 1, 0, 0, 3, 2, 0, 10 ]
+
+# print(test.mini_max_alpha_beta(bits, 2, -999, 999, True,False))
 #print(test.mini_max(bits,2,True,True))
 #print(test.find_all_moves(1))
 #print(test.replay(bits, 12,1))
-
-
-

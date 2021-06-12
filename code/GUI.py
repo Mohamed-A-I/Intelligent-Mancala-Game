@@ -2,15 +2,16 @@ from tkinter import Frame, Tk, ttk
 import tkinter
 from tkinter.constants import FALSE, TRUE
 from tkinter.messagebox import showinfo
-
+from calcState import *
+import time
 class Mancala():
     def __init__(self):
         self.root = tkinter.Tk()
         self.root.resizable(width=0,height=0)
         self.root.geometry('{}x{}'.format(1200, 392))
         self.root.title("mancala game")
-        self.steeloption = tkinter.StringVar()
-        self.aioption = tkinter.StringVar()
+       
+        
         self.house1 = tkinter.StringVar()
         self.house2 = tkinter.StringVar() 
         self.house3 = tkinter.StringVar()
@@ -43,11 +44,13 @@ class Mancala():
             self.house14 
         ]
         # manacala info
-
+       
         self.bits = [4, 4, 4, 4, 4, 4 , 0, 4, 4, 4, 4, 4, 4 , 0 ]
-        self.player = 1 
-        self.play_type = 1 #play without steeling
+        self.player = 0 
+        self.play_type = 0 #play without steeling
         self.computer = 0
+        
+        self.AI = AI((self.bits))
         self.home()
 
         self.root.mainloop()
@@ -65,7 +68,9 @@ class Mancala():
         x_pos1 = 150
         p2_pos=200
         p1_pos=0
-        tkinter.Button(self.root,textvariable= self.houses[0],bg='blue',command=lambda:self.play_select(0), width= 15,height=10,borderwidth=3).place(x=150,y=p2_pos)
+        tkinter.Button(self.root,textvariable= self.houses[0],bg='blue',
+        command=lambda:self.play_select(0), 
+        width= 15,height=10,borderwidth=3).place(x=150,y=p2_pos)
         tkinter.Button(self.root,textvariable= self.houses[1],bg='blue',command=lambda:self.play_select(1), width=15,height=10,borderwidth=3).place(x=300,y=p2_pos)
         tkinter.Button(self.root,textvariable= self.houses[2],bg='blue',command=lambda:self.play_select(2), width=15,height=10,borderwidth=3).place(x=450,y=p2_pos)
         tkinter.Button(self.root,textvariable= self.houses[3],bg='blue',command=lambda:self.play_select(3), width=15,height=10,borderwidth=3).place(x=600,y=p2_pos)
@@ -81,12 +86,8 @@ class Mancala():
         tkinter.Label(self.root,textvariable=self.houses[6],bg='blue',width=18,height=23).place(x=1055,y=0)
     
     def home(self):
-        # AI or multiplayer
-        tkinter.Button(self.root,text="Multiplayer", 
-        width= 15,height=5,borderwidth=3).place(x=450,y=0)
-        tkinter.Button(self.root,text="AI", 
-        width= 15,height=5,borderwidth=3).place(x=450,y=100)
-        tkinter.Label(self.root, textvariable=self.aioption).place(x=500,y=250)
+       
+     
         # steeling or without steeling 
         tkinter.Button(self.root,text="steeling",command=lambda:self.choosegame(0), 
         width= 15,height=5,borderwidth=3).place(x=650,y=0)
@@ -96,7 +97,13 @@ class Mancala():
         # let's play
         tkinter.Button(self.root,text="Let's play!",command=lambda:self.changepage(2), 
         width= 15,height=5,borderwidth=3).place(x=550,y=280)
-        
+         # AI or multiplayer
+       
+        tkinter.Button(self.root,text="Multiplayer",command = lambda:self.AI_or_mul(0), 
+        width= 15,height=5,borderwidth=3).place(x=450,y=0)
+        tkinter.Button(self.root,text="AI", command = lambda:self.AI_or_mul(1),
+        width= 15,height=5,borderwidth=3).place(x=450,y=100)
+
 
     def menu(self):
         menubar = tkinter.Menu(self.root)
@@ -119,10 +126,17 @@ class Mancala():
     def initial_state(self):
 
         i=0
-        self.player = 1 
-        
-        
+        self.player = 0
         self.bits = [4, 4, 4, 4, 4, 4 , 0, 4, 4, 4, 4, 4, 4 , 0 ]
+        if(self.computer == 1):
+            while(self.player == 0):
+                pos = self.AI.mini_max(self.bits,2,True,False)    
+                self.play_without_steeling(pos)
+                print("blue {}".format(self.bits))
+                print(pos)    
+
+            
+       
         
         while i<14:
             self.houses[i].set(self.bits[i])
@@ -137,8 +151,8 @@ class Mancala():
             self.game_page()    
 
     def choosegame(self,type):
+
         self.play_type = type
-        self.steeloption.set(type)
 
 ###############################################################################   
 #                                  Game Logic
@@ -147,24 +161,23 @@ class Mancala():
         self.isGameEnd()
         num = self.bits[house_index]
         pushed_index = house_index
-        if(self.player == 1 and pushed_index<6 and num != 0):
-            self.player = 0
+        if(self.player == 0 and pushed_index<6 and num != 0):
+            self.player = 1
             while(num>0):
                 house_index = (house_index + 1)%14
                 if(house_index == 13): house_index = 0
-                elif(num == 1 and house_index==6): self.player = 1
+                elif(num == 1 and house_index==6): self.player = 0
                 self.bits[house_index] += 1
                 num -= 1
 
             self.bits[pushed_index] = 0      
-        
         else:
-            if(self.player == 0 and pushed_index>6 and num != 0):
-                self.player = 1
+            if(self.player == 1 and pushed_index>6 and num != 0):
+                self.player = 0
                 while(num>0):
                     house_index = (house_index + 1)%14
                     if(house_index == 6): house_index = 7
-                    elif(num == 1 and house_index==13): self.player = 0
+                    elif(num == 1 and house_index==13): self.player = 1
                     self.bits[house_index] += 1
                     num -= 1
 
@@ -175,12 +188,12 @@ class Mancala():
         self.isGameEnd()
         num = self.bits[house_index]
         pushed_index = house_index
-        if(self.player == 1 and pushed_index<6 and num != 0):
-            self.player = 0
+        if(self.player == 0 and pushed_index<6 and num != 0):
+            self.player = 1
             while(num>0):
                 house_index = (house_index + 1)%14
                 if(house_index == 13): house_index = 0
-                elif(num == 1 and house_index==6): self.player = 1
+                elif(num == 1 and house_index==6): self.player = 0
                 elif(num==1 and self.bits[house_index] == 0):
                     self.bits[6] += 1 + self.bits[12-house_index]
                     self.bits[12-house_index] = 0
@@ -193,12 +206,12 @@ class Mancala():
             self.bits[pushed_index] = 0      
         
         else:
-            if(self.player == 0 and pushed_index>6 and num != 0):
-                self.player = 1
+            if(self.player == 1 and pushed_index>6 and num != 0):
+                self.player = 0
                 while(num>0):
                     house_index = (house_index + 1)%14
                     if(house_index == 6): house_index = 7
-                    elif(num == 1 and house_index==13): self.player = 0
+                    elif(num == 1 and house_index==13): self.player = 1
                     elif(num==1 and self.bits[house_index] == 0):
                         self.bits[13] += 1 + self.bits[12-house_index]
                         self.bits[12-house_index] = 0
@@ -211,7 +224,7 @@ class Mancala():
                 self.bits[pushed_index] = 0
         self.update()
 
-    def play_select(self,house_index):
+    def multiplayer(self,house_index):
         if(self.play_type == 1): self.play_without_steeling(house_index)
         else: self.play_with_steeling(house_index)
    
@@ -235,9 +248,44 @@ class Mancala():
 
     def isGameEnd(self):
         if(sum(self.bits[0:6]) == 0 or sum(self.bits[7:13]) == 0):
+            self.bits[13] += sum(self.bits[7:13])
+            self.bits[6] += sum(self.bits[0:6])
+            self.update()
             self.winner()
+           
 
 
 
+    def AI_player(self,house_index):
+        if(self.play_type == 1):
+            self.play_without_steeling(house_index)
+        else:
+            self.play_with_steeling(house_index)
+        print("red {}".format(self.bits))
+        while(self.player == 0):
+            print(" entre ai")
+            if(self.play_type == 1):
+                pos = self.AI.mini_max_alpha_beta(self.bits, 2, -999, 999, True,False)
+                self.play_without_steeling(pos)
+            else:
+                pos = self.AI.mini_max_alpha_beta(self.bits, 2, -999, 999, True,True)  
+                self.play_with_steeling(pos)  
+            print("pos{}".format(pos))
+            
+            print("blue {}".format(self.bits))
 
-    
+          
+
+    def play_select(self,house_index):
+      
+        print("player {}".format(self.player))
+        if(self.computer == 1):
+            # print("cimputer {}".format(self.computer))
+        
+            self.AI_player(house_index)
+        else:
+            self.multiplayer(house_index)
+    def AI_or_mul(self,computer):
+       
+        self.computer = computer
+
