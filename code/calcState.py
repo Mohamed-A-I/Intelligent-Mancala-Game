@@ -211,10 +211,10 @@ def compute(x):
          
 #bits=[0, 0, 0, 0, 9, 1, 5, 4, 4, 4, 4, 4, 4 , 10 ]
 #bits=[0, 0, 0, 3, 2, 1, 5, 1, 0, 0, 3, 2, 0, 10 ]
-bits=[4, 4, 4, 4, 4, 4, 0, 4, 4, 1, 0, 0, 4, 0 ]
+bits=[0, 5, 1, 0, 0, 0, 0, 4, 4, 1, 0, 0, 4, 0 ]
 test = AI(bits)
-print(test.mini_max_alpha_beta(bits, 2, -999, 999, False,False))
-#print(test.mini_max(bits,2,False,False))
+print(test.mini_max_alpha_beta(bits, 2, -999, 999, True,True))
+#print(test.mini_max(bits,2,True,True))
 #print(test.find_all_moves(1))
 #print(test.replay(bits, 12,1))
 
