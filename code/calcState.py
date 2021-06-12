@@ -16,15 +16,15 @@ class AI:
             elif(player == 1 and pos == 6):
                 continue
             temp[pos] = temp[pos]+1
-            if(score == 1 and bits[pos] == 1 and stealing == True):
+            if(score == 1 and temp[pos] == 1 and stealing == True):
                 if player == 0:
-                    bits[6] = 1 + bits[12-pos]
-                    bits[12-pos] = 0
-                    bits[pos] =0
+                    temp[6] = 1 + bits[12-pos]
+                    temp[12-pos] = 0
+                    temp[pos] =0
                 if player == 1:
-                    bits[13] = 1 + bits[12-pos]
-                    bits[12-pos] = 0
-                    bits[pos] =0
+                    temp[13] = 1 + bits[12-pos]
+                    temp[12-pos] = 0
+                    temp[pos] =0
 
 
 
@@ -107,6 +107,38 @@ class AI:
                 #print(board)
                # print(min(best_value, val))
             return index
+    def mini_max_alpha_beta(self,bits, depth=2, alpha=-999, beta=+999, maximizing_player=False,stealing = False):
+        if depth == 0 or self.isGameEnd(bits):
+            return self.get_diff_score(bits)
+        index = 0
+        if maximizing_player:
+            best_value = -999
+            for move, board in self.find_all_moves(bits,stealing,0):
+                val = self.mini_max(bits,2, True,False)+int(self.replay(bits, move))
+                alpha = max(alpha, val)
+                if beta <= alpha:
+                    break
+                if val>best_value:
+                   index=move
+                   best_value=val
+                #print(max(best_value, val))
+                #print(move)
+                #print(board)
+            #print(max(best_value, val))
+            return index
+        else:
+            best_value = 999
+            for move, board in self.find_all_moves(bits,stealing,0):
+                val = self.mini_max(bits,2, True,False)+int(self.replay(bits, move))
+                beta = min(beta, val)
+                if beta <= alpha:
+                    break
+                if val<best_value:
+                   index=move
+                   best_value=val
+                #print(board)
+               # print(min(best_value, val))
+            return index
 
 
 
@@ -179,9 +211,10 @@ def compute(x):
          
 #bits=[0, 0, 0, 0, 9, 1, 5, 4, 4, 4, 4, 4, 4 , 10 ]
 #bits=[0, 0, 0, 3, 2, 1, 5, 1, 0, 0, 3, 2, 0, 10 ]
-bits=[0, 1, 1, 0, 2, 0, 5, 1, 0, 0, 3, 2, 0, 10 ]
+bits=[4, 4, 4, 4, 4, 4, 0, 4, 4, 1, 0, 0, 4, 0 ]
 test = AI(bits)
-print(test.mini_max(bits,3,True,False))
+print(test.mini_max_alpha_beta(bits, 2, -999, 999, False,False))
+#print(test.mini_max(bits,2,False,False))
 #print(test.find_all_moves(1))
 #print(test.replay(bits, 12,1))
 
